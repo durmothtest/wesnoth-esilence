@@ -1,14 +1,12 @@
 # Characterization - Characters
 
-
-
 ## Tedder - Troll
 
 ###### Herkunft
 
 Tedder hat sich schon seit seiner Geburt an als äußerst intelligent und führungsfähig erwiesen. Seit Jahrhunderten gilt
 Tedder als einer der wenigen Trolle, die es fertig brachten, mit Magie umzugehen. Als der Stammesführer Gronk eines
-Tages im Kampf fiel, war es keine große Diskussion, bis sich Tedder zum neuen Oberhaupt wählen lies.
+Tages im Kampf fiel, war es keine große Diskussion, bis sich Tedder zum neuen Oberhaupt wählen ließ.
 
 Es war eine prächtige Zeit des Friedens, seit sich Menschen, Orks, Elfen und sogar Zwerge einigten, den ewigen Krieg
 hinter sich zu lassen. 
@@ -24,13 +22,12 @@ oder seines Stammes Überleben zu sichern.
 Nachdem König Disgustus IV. von Bostim Tedders Herrschaft, sowie seines gesamten Stammes Leben, beendete, ist es ihm,
 dank seiner Intelligenz und früheren Gabe mit der Magie, möglich, die Totenbeschwörung zu erlernen.
 
-
-
 ## Ugoki - Troll
 
 ###### Herkunft
 
-Ugoki ist seit der frühen Kindheit ein treuer Freund von Tedder.
+Ugoki ist seit der frühen Kindheit ein treuer Freund von Tedder. Er würde sein eigenes Leben hingeben, um Tedder zu
+retten.
 
 ###### Charakter 
 
@@ -38,24 +35,21 @@ Er weist keine besondere Gabe oder Intelligenz auf, sticht jedoch durch seine an
 Des weiteren ist Ugoki, typisch für einen Troll, sehr der Natur verbunden. So genießt er es, wenn ein Gewitter Felsen
 von einem Berg stürzen lässt oder wenn ein Blitz einen Baum spaltet.
 
-Beispiel: So einen richtig tödlichen Felsensturz möchte ich gerne mal wieder erleben!
+Beispiel: So einen richtig krachigen Felsensturz möchte ich gerne mal wieder erleben!
 
 ###### Auferstehung
 
 Auch nach dem Tod (siehe Tedders Auferstehungs-Beschreibung) weist Ugoki einer gewaltige Stärke mit der bloßen Faust und
 ein Geschick für rohe Gewalt auf.
 
-
-
-## Disgustus (König, Zweiter seines Namens) - Mensch
+## Disgustus II (König, Zweiter seines Namens) - Mensch
 
 ###### Herkunft
 
-Disgustus hat mit 13 Jahren seinen ersten Mord begangen. Seit dem genießt Disgustus die Vorteile des unfairen Spielens.
+Disgustus hat mit 15 Jahren seinen ersten Mord begangen. Seitdem genießt Disgustus die Vorteile des unfairen Spielens.
 Später findet er heraus, dass er mit genauer und besser ausgewählten Opfern seinen Standpunkt sowie Ruf verbesserte.
-So schaffte er es in jungem Alter, und ohne überhaupt von königlichem Blute zu sein, zum Machthaber von Bostim, indem er
-taktisch nacheinander seine gesamte Familie, sowie den König, seinen entfernten Onkel Disgustus, dem Ersten seines
-Namens, ermordete.
+So schaffte er es in jungem Alter zum Machthaber von Bostim, indem er taktisch nacheinander seine gesamte Familie
+inklusive des Königs, seinen entfernten Onkel Disgustus I. ermordete.
 
 ###### Charakter
 
@@ -63,8 +57,6 @@ Disgustus liebt das Morden, er ist hinterhältig und machtsüchtig. Er ist der M
 Menschen und Elfen, nichts zu sagen haben und minderwertig wären. So geschieht es auch, dass sich Bostim auf den Befehl
 König Disgustus II. gegen die Blütezeit der Trolle und den aktuell währenden Frieden erhebt und Tedder, Ugoki sowie den
 Trollstamm auslöscht.  
-
-
 
 ## Nekromant - Mensch
 
@@ -74,22 +66,19 @@ Der Totenbeschwörer mit dem Namen Nekromant war einst ein normales Kind und Zau
 Jedoch war Nekromant die normale, schulgewiesene Magie zu eingeschränkt. So widersetzte er sich gegen die dort geltenden
 Regeln und brachte sich im Geheimen das Totenbeschwören bei.
 
-Nekromant hatte sich inzwischen komplett zurückgezogen und wurde den Stadtbewohnern aus Bostim zu unheimlich und
+Nach der Schule hat er sich komplett zurückgezogen. Er wurde den Stadtbewohnern aus Bostim zu unheimlich und
 angsteinflößend. So wurde er aus Bostim verjagt und verbannt. Er nahm Zuflucht in der Sumpfburg, nahe dem Wachsamen
 Wald, und gründete dort im Sumpf seine eigene Zauberschule. Leider hat er jedoch niemals einen Lehrling gefunden.
 
-Nach wenigen Jahren wurde er auch dort von den Elfen vertrieben und in
-ein unterirdisches Verlies, gelegen westlich der Tückischen Gipfel, eingesperrt. Bewacht von einem Wächtergeist sollte
-er dort auf den Tod warten.
+Nach etlichen Jahren wurde er auch dort von den Elfen vertrieben und in ein unterirdisches Verlies, gelegen westlich der
+Tückischen Gipfel, eingesperrt. Bewacht von einem Wächtergeist sollte er dort auf den Tod warten.
 
 ###### Charakter
 
-Nekromant ist neugierig was die Grenzen des Lebens sowie des Todes angeht. Er experimmentiert mit Leichen und weist auch
-eine besondere Zuneigung zu diesen auf. Mit der Zeit im Verlies wird er jeden Tag, soweit er diese zählen kann, immer
-verrückter und dreht letztendlich komplett durch. Wenn er sich unter anderen Lebewesen aufhält oder sogar mit solchen
-kommuniziert, hält er sich mit widerwärtigen und verstörenden Kommentaren nicht zurück.     
-
-
+Nekromant ist neugierig was die Grenzen des Lebens sowie des Todes angeht. Er experimentiert mit Leichen und hat ein
+ungesundes Interesse an diesen. Mit der Zeit im Verlies wird er jeden Tag, soweit er diese zählen kann, immer verrückter
+und dreht letztendlich komplett durch. Wenn er sich unter anderen Lebewesen aufhält oder sogar mit solchen kommuniziert,
+hält er sich mit widerwärtigen und verstörenden Kommentaren nicht immer zurück.    
 
 ## Uruknorg - Ork
 
@@ -105,8 +94,6 @@ weiter vereint hielt.
 Uruknorg denkt taktisch und strategisch, weshalb er auch ein erfolgreicher und würdiger Nachfolger seines Vaters
 Mun'Dorg ist.
 
-
-
 ## Tal'Valgor - Ork
 
 ###### Herkunft
@@ -120,8 +107,6 @@ Tal'Valgor ist gewaltverherrlichend und liebt herausfordernde Kämpfe bis zum To
 und vermeidet lachhaft einfache Kriege. Er redet nicht viel und wird wütend, wenn zu viel Schwachsinn gelabert wird,
 ohne auf den Punkt zu kommen.
 
-
-
 ## Kar'Orugalak - Ork
 
 ###### Herkunft
@@ -134,11 +119,7 @@ Messerwerfen.
 ###### Charakter
 
 Kar'Orugalak ist heimtückisch und gemein, mit fiesen, extremen Ideen für den Kampf. So bevorzugt er es, den Feind zu
-infiltrieren und das Ziel von hinten zu ermeucheln, als im direkten Kampf die Kehle durchzuschneiden. Er hasst Untote
-mehr als alles andere, was auch zu einem Konflikt zwischen Orks und Tedder wird, wenn sich Tedder und Ugoki den Orks
-anschließen.
-
-
+infiltrieren und das Ziel von hinten zu ermeucheln, als im direkten Kampf mit dem Schwert zu töten.
 
 ## Grätrich - Mensch
 
@@ -146,7 +127,7 @@ anschließen.
 
 Grätrich war einst ein Adler aus Bostim, der Sohn von Disgustus II. Er versuchte schon seit er ein kleiner Junge war,
 seinen Vater zu ermorden. Mit knapp 20 Jahren war es seinem Vater zu viel und er wurde aus der Stadt verbannt. Weiterhin
-plant Grätrich aber den Tod von Disgustus.
+plant Grätrich aber den Tod von Disgustus II.
 
 Nach seiner Verbannung floh Grätrich nach Norden, in die Berge, wo er auf die Gesetzeslosen unter der Führung von Dolgo
 traf. Er schloss sich ihnen an, doch als seine neuen Freunde herausfanden, dass er der Sohn von Disgustus II. ist, wurde
@@ -157,39 +138,18 @@ er auch hier verbannt.
 Grätrich ist etwas verrückt, aber sehr milde, in keinster Weise wie Kar'Orugalak oder Nekromant. Eigentlich will er nur
 seinen Vater umbringen und selbst an die Macht kommen.
 
-
-
 ## Kiki - Mensch
 
 ###### Herkunft
 
-Kiki stammt, wie Nekromant, aus Bostims Zauberschule. Die Prüfungen für die Zauberausbildung bestand sie nicht. So
-verließ die junge, erfolgslose Magierin die Menschenstadt und schloss sich einer Gruppe von Wilden in den Tückischen
-Gipfeln an.
+Kiki stammt, wie Nekromant, aus Bostims Zauberschule. Die Prüfungen für die Zauberausbildung bestand sie nicht und
+versuchte daraufhin den Schulleiter zu verhexen. Sie wurde aus der Menschenstadt verbannt und schloss sich einer Gruppe
+von Wilden in den Tückischen Gipfeln an.
 
 ###### Charakter
 
-Kiki war schon immer weder besonders intelligent, noch erfolgreich. Dennoch hat sie sich Wissen über die Magie und
+Kiki war schon immer nur mittelmäßig begabt und wenig erfolgreich. Dennoch hat sie sich Wissen über die Magie und
 Zauberei angeeignet und auch nicht vergessen, dank ihrer Ausbildung in der Zauberschule von Bostim.
-
-
-
-## Kronk - Troll
-
-###### Herkunft
-
-Kronk wurde einst als Welpe verschleppt, als seine Heimat von Wilden überfallen wurde. Seit dem wurde er auch von Wilden
-aufgezogen und lebt im Untergrund, als einziger seiner Rasse. 
-
-Aktuell lebt Kronk mit der Gemeinschaft von Dolgo zusammen und hat einen Job als Leibwächter von Dolgo. 
-
-###### Charakter
-
-Kronk ist Brutal und etwas zurückgeblieben, längst nicht die selbe Intelligenz, die Tedder und Ugoki, ungewöhnlich für
-Trolle, aufweisen. Tatsächlich ist er eigentlich ein ganz normaler Troll, nur dass er nicht in den Bergen, sondern unter
-den Bergen aufwuchs. Dementsprechend versucht er alles mit seiner Überlegenheit der Muskelkraft zu lösen.
-
-
 
 ## Vasolin - Elf
 
@@ -202,15 +162,11 @@ Vasolin ist Elfenkönig des Wachsamen Waldes.
 Vasolin ist ein typischer Elf, schwule Redensart und naturnah. Er bevorzugt die Gesellschaft von Bäumen und verbringt
 seine Zeit am liebsten auf Blumenwiesen.
 
-
-
-## Landolin - Elf
+## Lalinda - Elf
 
 ###### Herkunft
 
-Landolin ist der Sohn von Vasolin.
-
-
+Lalinda ist die Tochter von Vasolin.
 
 ## Wickbert - Mensch
 
@@ -218,16 +174,12 @@ Landolin ist der Sohn von Vasolin.
 
 Ein Paladin, magischer Ritter aus bostim, Gesandter um Orks und Untote von den Ländern zu vertreiben oder zu vernichten. 
 
-
-
 ## Gouverneur Rudolt - Mensch
 
 ###### Herkunft
 
-Rudolt ist ein Gouverneur von Bostim. Nach Tedders Vernichtung, sowie derer seines gesamten Stammes, wurde er dazu
-beauftragt, das ehemals von Trollen besiedelte Bergdorf wieder aufzubauen und für Menschen wohnlich zu erbauen.
-
-
+Rudolt ist ein Gouverneur von Bostim. Nach Tedders Vernichtung, sowie der seines gesamten Stammes, wurde er dazu
+beauftragt, das ehemals von Trollen besiedelte Bergdorf als Menschensiedlung wieder aufzubauen.
 
 ## Sicktus - Mensch
 
@@ -235,14 +187,12 @@ beauftragt, das ehemals von Trollen besiedelte Bergdorf wieder aufzubauen und f�
 
 Sicktus ist ein General von Bostim. Er wurde dazu beauftragt alle Orks im Süden zu unterwerfen, notfalls mit Gewalt.
 
-
-
 ## Dulagan - Zwerg
 
 ###### Herkunft
 
-Dulagan ist ein Zwergenfürst. Er herrscht über die nördlichen Regionen der Tückischen Gipfel.
-
+Dulagan ist ein Zwergenfürst. Er herrscht über die nördlichen Regionen der Tückischen Gipfel. Kommt selber nie vor, es
+gibt die Zwerge nur als ein paar Knastwächter.
 
 
 ## Dolgo - Mensch
