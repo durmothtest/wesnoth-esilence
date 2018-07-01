@@ -1,5 +1,12 @@
 <?php
-namespace Source;
+/**
+ * @author      Roland Schilffarth <roland@schilffarth.org>
+ * @license     https://www.gnu.org/licenses/gpl-3.0.de.html General Public License (GNU 3.0)
+ */
+
+namespace Source\Component\Interaction\Output;
+
+use Source\Command\AbstractCommand;
 
 class Output
 {
@@ -21,13 +28,18 @@ class Output
 
     /**
      * The current verbosity level for the run command
+     *
      * @see Output::verbosityDisallowsOutput
      */
     public $verbosity = self::NORMAL;
 
     /**
-     * Codes for colored console output
-     * Don't use a constant, to allow custom colors being set
+     * Whether to color / highlight output dependent on message level or not
+     */
+    public $colorDisabled = false;
+
+    /**
+     * Codes for colored console output, allows custom colors to be registered
      *
      * Example:
      *
@@ -40,68 +52,90 @@ class Output
      *     $this->output->writeln('<custom_color_blue>This is a blue string.</custom_color_blue> Well done!');
      * }
      */
-    public $tags = [
+    public $colors = [
+        // Light grey, darker than usual white output
+        'comment' => '0;37',
         // Info output is colored green
         'info' => '0;32',
-        // Debug output is colored yellow
-        'debug' => '1;33',
+        // Important debug output
+        'debug' => '0;36',
         // Error output is colored red
         'error' => '0;31'
     ];
 
     /**
      * Output a message to the console
-     * The command will highlight all registered tags with their mapped colors
-     * @see Output::tags
+     * The command will highlight all registered colors with their mapped colors
+     *
+     * @see Output::colors
      * @see Output::parseMessage
      */
-    public function writeln(string $message = '', $verbosity = self::NORMAL): self
+    public function write(string $message, int $verbosity = self::NORMAL, bool $nl = false): self
     {
         if ($this->verbosityDisallowsOutput($verbosity)) {
             // The message should not be outputted in the current verbosity level
             return $this;
         }
 
-        // Replace tags, such as <info></info> with the mapped color attribute in $this->tags
+        // Replace colors, such as <info></info> with the mapped color attribute in $this->colors
         $message = $this->dissect($message);
 
-        echo $message . PHP_EOL;
+        echo $message;
+
+        if ($nl) {
+            $this->nl();
+        }
+
+        return $this;
+    }
+
+    public function writeln(string $message, int $verbosity = self::NORMAL): self
+    {
+        $this->write($message, $verbosity, true);
 
         return $this;
     }
 
     /**
-     * Wraps the message in <error></error> tags
+     * Wraps the message in <error></error> colors
      * Verbosity defaults to QUIET
      */
-    public function error(string $message = '', $verbosity = self::QUIET): self
+    public function error(string $message, $verbosity = self::QUIET): self
     {
         return $this->writeln("<error>$message</error>", $verbosity);
     }
 
     /**
-     * Wraps the message in <info></info> tags
+     * Wraps the message in <info></info> colors
      */
-    public function info(string $message = '', $verbosity = self::NORMAL): self
+    public function info(string $message, $verbosity = self::NORMAL): self
     {
         return $this->writeln("<info>$message</info>", $verbosity);
+    }
+
+    /**
+     * Wraps the message in <comment></comment> colors
+     */
+    public function comment(string $message, $verbosity = self::NORMAL): self
+    {
+        return $this->writeln("<comment>$message</comment>", $verbosity);
     }
 
     /**
      * Wraps the message in <debug></debug>
      * Verbosity defaults to DEBUG
      */
-    public function debug(string $message = '', $verbosity = self::DEBUG): self
+    public function debug(string $message, $verbosity = self::DEBUG): self
     {
         return $this->writeln("<debug>$message</debug>", $verbosity);
     }
 
     /**
-     * Outputs PHP_EOL respectively line breaks to the CLI
+     * Outputs line breaks to the console
      */
-    public function nl($count = 1): self
+    public function nl($amount = 1): self
     {
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $amount; $i++) {
             echo PHP_EOL;
         }
 
@@ -111,7 +145,7 @@ class Output
     /**
      * Check whether to display the current output or not
      */
-    private function verbosityDisallowsOutput(int $verbosity): bool
+    public function verbosityDisallowsOutput(int $verbosity): bool
     {
         if ($this->verbosity >= $verbosity) {
             // Output
@@ -122,20 +156,33 @@ class Output
     }
 
     /**
+     * Remove all registered colors from the given string
+     *
+     * @see Output::colors
+     */
+
+    private function removeTags(string $msg): string
+    {
+        foreach ($this->colors as $tag => $color) {
+            $msg = str_replace("<$tag>", '', $msg);
+            $msg = str_replace("</$tag>", '', $msg);
+        }
+
+        return $msg;
+    }
+
+    /**
      * Dissect / replace the lags like <info> with the related / mapped color string
      * I don't give a fuck about mac os here
      */
     private function dissect(string $str): string
     {
-        if (strtoupper(PHP_OS) === 'LINUX') {
-            // Insert the mapped colors
-            $str = $this->parseMessage($str);
+        if ($this->colorDisabled) {
+            // Disable colored output, for example when run on Windows Powershell
+            $str = $this->removeTags($str);
         } else {
-            // Unfortunately, on windows we can't display colored output, so we will simply remove all the tags
-            foreach ($this->tags as $tag => $color) {
-                $str = str_replace("<$tag>", '', $str);
-                $str = str_replace("</$tag>", '', $str);
-            }
+            // Highlight message
+            $str = $this->parseMessage($str);
         }
 
         return $str;
@@ -155,8 +202,8 @@ class Output
                 'position' => null
             ];
 
-            // Get the positions of the next color tags
-            foreach ($this->tags as $tag => $color) {
+            // Get the positions of the next color colors
+            foreach ($this->colors as $tag => $color) {
                 // Opening tag
                 $pos = strpos($str, "<$tag>", $offset);
                 if ($pos !== false) {
@@ -192,7 +239,7 @@ class Output
             }
 
             if (!$isClosing) {
-                // Only add opening tags to hierarchy
+                // Only add opening colors to hierarchy
                 $hierarchy[] = $next['tag'];
             }
 
@@ -207,7 +254,7 @@ class Output
                         $previous = array_pop($hierarchy);
 
                         if ($tag !== $previous) {
-                            // Opening and closing tags do not fit each other
+                            // Opening and closing colors do not fit each other
                             echo PHP_EOL . PHP_EOL . 'ERROR: Incorrect closing tag </' . $tag . '> for previously opened <' . $previous . '>' . PHP_EOL . PHP_EOL;
                         }
                     }
@@ -220,7 +267,7 @@ class Output
                             // Standard, no preceding unclosed tag found
                             $color = '0';
                         } else {
-                            $color = $this->tags[$previous];
+                            $color = $this->colors[$previous];
                         }
                     } else {
                         // Standard, from now on there's default coloring again
@@ -238,7 +285,7 @@ class Output
                     );
                 } else {
                     // Opening tag
-                    $colorStr = $this->getColor($this->tags[$next['tag']]);
+                    $colorStr = $this->getColor($this->colors[$next['tag']]);
                     $offset = $next['position'] + strlen($colorStr);
                     $str = substr_replace(
                         $str,

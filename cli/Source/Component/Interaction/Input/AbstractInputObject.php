@@ -1,15 +1,20 @@
 <?php
-namespace Source;
+/**
+ * @author      Roland Schilffarth <roland@schilffarth.org>
+ * @license     https://www.gnu.org/licenses/gpl-3.0.de.html General Public License (GNU 3.0)
+ */
 
-class Input
+namespace Source\Component\Interaction\Input;
+
+use Source\Component\Interaction\Output\Output;
+
+class AbstractInputObject
 {
 
     /**
-     * The label that will be displayed the next time a user input is requested with @see Input::nextLine
+     * User input
      */
-    protected $label;
-
-    protected $labelVerbosity = Output::QUIET;
+    public $value = '';
 
     protected $output;
 
@@ -19,12 +24,17 @@ class Input
         $this->output = $output;
     }
 
-    public function setLabel(string $label, $verbosity = Output::QUIET): self
-    {
-        $this->label = $label;
-        $this->labelVerbosity = $verbosity;
+    /**
+     * The input object is created with @see InputFactory::create
+     */
+    public function create() {}
 
-        return $this;
+    /**
+     * Use this function to display your input object in the console and retrieve the user input
+     */
+    public function request()
+    {
+        $this->value = $this->nextLine();
     }
 
     /**
@@ -32,10 +42,6 @@ class Input
      */
     public function nextLine(): string
     {
-        if (is_string($this->label)) {
-            $this->output->writeln($this->label, $this->labelVerbosity);
-        }
-
         return trim(fgets(STDIN));
     }
 

@@ -1,5 +1,10 @@
 <?php
-namespace Source;
+/**
+ * @author      Roland Schilffarth <roland@schilffarth.org>
+ * @license     https://www.gnu.org/licenses/gpl-3.0.de.html General Public License (GNU 3.0)
+ */
+
+namespace Source\Component;
 
 /**
  * Automatic constructor dependency injection.
@@ -15,45 +20,50 @@ class DependencyInjector
     /**
      * Build an instance of the given class
      */
-    public function inject(string $class)
+    public function inject(string $class, bool $create = false)
     {
-        if (isset($this->loaded[$class])) {
+        if (isset($this->loaded[$class]) && !$create) {
             return $this->loaded[$class];
         }
         $reflector = new \ReflectionClass($class);
         if (!$reflector->isInstantiable()) {
             throw new \Exception("$class is not instantiable.");
         }
-        $return = $this->injectConstructorArgs($reflector, $class);
-        return $this->getClass($class, $return);
+        $return = $this->injectConstructorArgs($reflector, $class, $create);
+        return $this->getClass($class, $return, $create);
     }
 
     /**
      * Instantiate new constructor params
      */
-    private function injectConstructorArgs(\ReflectionClass $reflector, $class)
+    private function injectConstructorArgs(\ReflectionClass $reflector, string $class, bool $create)
     {
         $constructor = $reflector->getConstructor();
         if ($constructor === null) {
-            return $this->getClass($class);
+            return $this->getClass($class, null, $create);
         }
         $parameters = $constructor->getParameters();
-        $dependencies = $this->getDependencies($parameters);
+        $dependencies = $this->getDependencies($parameters, $create);
         return $reflector->newInstanceArgs($dependencies);
     }
 
     /**
      * If class has already been instantiated, return its singleton
      * Otherwise create new object and return its instance
+     * if $create is true, always create new object
      */
-    private function getClass(string $class, $instance = null)
+    private function getClass(string $class, $instance = null, bool $create)
     {
         while (strlen($class) && $class[0] === "\\") {
             $class = substr($class, 1);
         }
-        if (!isset($this->loaded[$class])) {
+        if (!isset($this->loaded[$class]) || $create) {
             $toInject = $instance === null ? new $class : $instance;
-            $this->loaded[$class] = $toInject;
+            if ($create) {
+                return $toInject;
+            } else {
+                $this->loaded[$class] = $toInject;
+            }
         }
         return $this->loaded[$class];
     }
@@ -61,7 +71,7 @@ class DependencyInjector
     /**
      * Build up a list of dependencies for given parameters (of constructor)
      */
-    private function getDependencies(array $parameters): array
+    private function getDependencies(array $parameters, bool $create): array
     {
         $dependencies = [];
         /** @var \ReflectionParameter $param */
@@ -72,10 +82,10 @@ class DependencyInjector
             } else {
                 $instance = null;
                 $dependencyName = $dependency->name;
-                if (!isset($this->loaded[$dependencyName])) {
-                    $instance = $this->inject($dependencyName);
+                if (!isset($this->loaded[$dependencyName]) || $create) {
+                    $instance = $this->inject($dependencyName, $create);
                 }
-                $dependencies[] = $this->getClass($dependencyName, $instance);
+                $dependencies[] = $this->getClass($dependencyName, $instance, $create);
             }
         }
         return $dependencies;
@@ -89,7 +99,7 @@ class DependencyInjector
         if ($parameter->isDefaultValueAvailable()) {
             return $parameter->getDefaultValue();
         }
-        throw new \Exception("(\Core\Resource\Helper\GlobalHelper\Autoloader\DependencyInjector)->injectNonClass(): Failed to inject $parameter");
+        throw new \Exception(sprintf("(\Core\Resource\Helper\GlobalHelper\Autoloader\DependencyInjector)->injectNonClass(): Failed to inject %s", $parameter));
     }
 
 }
