@@ -13,8 +13,9 @@ use Source\Component\Interaction\Output\Output;
 /**
  * Create an argument object, including its handlers
  *
- * Please note, that arguments are always supposed to start with double hyphens: --
+ * Please note that arguments are always supposed to start with double hyphens: --
  * If the argument starts with a single hyphen, it is assumed to be an alias for an valid and registered argument
+ * For sticking to this convention and not confusing anyone, use AbstractArgumentObject::trimProperty
  */
 abstract class AbstractArgumentObject
 {
@@ -64,17 +65,9 @@ abstract class AbstractArgumentObject
 
     /**
      * Instance is set in @see App::registerArguments
-     *
      * @var Output $output
      */
     public $output;
-
-    /**
-     * Instance is set in @see App::registerArguments
-     *
-     * @var AbstractInputObject $input
-     */
-    public $input;
 
     /**
      * Contains all registered callback
@@ -87,11 +80,9 @@ abstract class AbstractArgumentObject
      * Build a new argument
      */
     public function __construct(
-        Output $output,
-        AbstractInputObject $input
+        Output $output
     ) {
         $this->output = $output;
-        $this->input = $input;
     }
 
     /**
@@ -125,7 +116,7 @@ abstract class AbstractArgumentObject
     /**
      * Initialize / build up your argument - $this->passed is set before this method is called
      * With this function you can introduce special logic for your argument, such as complex type handling
-     * For an example @see Complex
+     * For an example @see Complex::launch
      */
     abstract public function launch(array &$argv);
 
@@ -140,12 +131,11 @@ abstract class AbstractArgumentObject
         } else {
             // Add the handler, but make sure to keep existing handlers and not override one accidentally
             if (isset($this->handler[$priority])) {
-                /** @var \Source\Component\Interaction\AbstractOutput $output */
-                $output = inject(Output::class);
-                $output->error('Cannot initialize argument handler properly at index ' . $priority .'. The given priority has already been set.');
+                $this->output->error(sprintf('Cannot initialize argument handler properly at index %d. The given priority has already been set.', $priority));
                 $this->handler[] = $handler;
             } else {
                 $this->handler[$priority] = $handler;
+                // todo Probably remove this, not sure whether it's necessary
                 ksort($this->handler);
             }
         }

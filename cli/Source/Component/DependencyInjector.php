@@ -7,7 +7,9 @@
 namespace Source\Component;
 
 /**
- * Automatic constructor dependency injection.
+ * Automatic constructor dependency injection
+ *
+ * todo Proper code style, refactor entire class
  */
 class DependencyInjector
 {

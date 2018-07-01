@@ -164,13 +164,13 @@ class App
             $this->validateArguments();
 
             if (!empty($this->argv)) {
-                $this->output->error('The following argument(s) could not be resolved: ');
+                $this->output->error('The following argument(s) could not be resolved:');
                 foreach ($this->argv as $arg) {
                     $this->output->writeln($arg);
                 }
             }
         } else {
-            $this->output->error('Command "' . $command . '"" not found.');
+            $this->output->error(sprintf('Command "%s" not found.', $command));
             $this->listRegisteredCommands();
             exit;
         }
@@ -193,16 +193,14 @@ class App
                 $found = array_search($scan, $this->argv, true);
                 if ($found !== false) {
                     if ($argument->passed) {
-                        // AbstractArgumentObject is passed multiple times
-                        $this->output->error(sprintf('AbstractArgumentObject %s is passed more than once. Please make sure your command does not contain any typos.'), $argument->name);
+                        // Argument is passed multiple times
+                        $this->output->error(sprintf('Argument %s is passed more than once. Please make sure your command does not contain any typos.'), $argument->name);
                         exit;
                     }
                     $argument->passed = true;
                     unset($this->argv[$found]);
                 }
             }
-
-            $argument->launch($this->argv);
         }
     }
 
@@ -243,6 +241,8 @@ class App
                     exit;
                 }
             }
+
+            $argument->launch($this->argv);
         }
     }
 

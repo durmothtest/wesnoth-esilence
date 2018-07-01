@@ -30,49 +30,48 @@ abstract class AbstractCommand
     public $help = '';
 
     /**
-     * Arguments that won't be executed by default, they need to be triggered manually with @see AbstractArgumentObject::trigger
-     *
+     * Arguments executed @see AbstractCommand::triggerArguments
      * @var AbstractArgumentObject[]
      */
     public $arguments = [];
 
-    protected $input;
-    protected $output;
     protected $argumentFactory;
     protected $inputFactory;
+    protected $output;
 
     public function __construct(
-        AbstractInputObject $input,
-        Output $output,
         ArgumentFactory $argumentFactory,
-        InputFactory $inputFactory
+        InputFactory $inputFactory,
+        Output $output
     ) {
-        $this->input = $input;
-        $this->output = $output;
         $this->argumentFactory = $argumentFactory;
         $this->inputFactory = $inputFactory;
+        $this->output = $output;
     }
 
     /**
      * Register arguments and associated handlers
      * For example usage @see AbstractCommand::setDefaultArgs
+     *
+     * This method is run BEFORE arguments or commands are processed or triggered
      */
     abstract public function init();
 
     /**
-     * The function is called if your command is run
+     * This method is run AFTER arguments and commands are processed or triggered
      */
     abstract public function run();
 
     /**
      * Register default arguments
+     * For defining custom default arguments, use @see AbstractCommand::init
      */
     public function setDefaultArgs()
     {
         /** COLORED OUTPUT - Whether to display console colored output */
         $disableColoredOutput = $this->argumentFactory->create(
             ArgumentFactory::ARGUMENT_SIMPLE,
-            '--color-disable',
+            'color-disable',
             'Disable colors displayed with the console output. Recommended for Windows PowerShell.'
         );
         $disableColoredOutput->registerHandler([$this, 'disableColoredOutput']);
@@ -112,6 +111,9 @@ abstract class AbstractCommand
         $this->setArgument($quiet);
     }
 
+    /**
+     * Callback if --help is passed
+     */
     public function triggerHelp()
     {
         $this->output->info($this->command)->nl();
@@ -132,16 +134,25 @@ abstract class AbstractCommand
         exit;
     }
 
+    /**
+     * Callback if --debug is passed
+     */
     public function setVerbosityDebug()
     {
         $this->output->verbosity = Output::DEBUG;
     }
 
+    /**
+     * Callback if --quiet is passed
+     */
     public function setVerbosityQuiet()
     {
         $this->output->verbosity = Output::QUIET;
     }
 
+    /**
+     * Callback if --color-disable is passed
+     */
     public function disableColoredOutput()
     {
         $this->output->colorDisabled = true;
@@ -183,15 +194,15 @@ abstract class AbstractCommand
 
     /**
      * Set an argument for the command
-     * You can set the order of
+     * You can set the process order with $order
      */
-    protected function setArgument(AbstractArgumentObject $arg, string $order = null): self
+    protected function setArgument(AbstractArgumentObject $arg, int $order = null): self
     {
         if ($order === null) {
             $this->arguments[] = $arg;
         } else {
             if (isset($this->arguments[$order])) {
-                $this->error(sprintf('Cannot initialize argument %s properly ordered as %s. The given order has already been set.', $arg->name, $order));
+                $this->error(sprintf('Cannot initialize argument %s properly ordered as %d. The given order has already been set.', $arg->name, $order));
                 $this->arguments[] = $arg;
             } else {
                 $this->arguments[$order] = $arg;
@@ -218,6 +229,7 @@ abstract class AbstractCommand
 
     /**
      * Remove / kill / destroy an argument
+     * Should be used in @see AbstractCommand::init only
      */
     protected function destroyArgument(string $name): self
     {

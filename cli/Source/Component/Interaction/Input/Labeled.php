@@ -27,8 +27,9 @@ class Labeled extends AbstractInputObject
     public function request()
     {
         if (!$this->output->verbosityDisallowsOutput($this->labelVerbosity)) {
-            $this->output->comment(sprintf('%s', $this->label));
+            $this->output->comment($this->label);
         }
+
         parent::request();
     }
 

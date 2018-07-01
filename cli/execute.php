@@ -79,12 +79,4 @@ try {
  *
  * LastError (requires the data buffer):
  * This command will output information about the last error that occurred and has been stored in the error.log
- *
- * todo...
- *
- * Replace all connected strings with sprintf()
- *
- * todo...
- *
- * Add copyright file headers
  */

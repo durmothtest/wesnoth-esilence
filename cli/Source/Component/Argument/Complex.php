@@ -9,21 +9,15 @@ namespace Source\Component\Argument;
 /**
  * Complex arguments represent options that need to take a value, initialized by the users input
  *
- * todo Possible formats for passing an argument with TYPE_VALUE
- * --argument value
- * --argument value
- * --arg "value"
- * -alias value
- *
  * Example usage:
- * --filename   -f      If the user passes `--filename example.txt` this arguments value will be set to example.txt
- * --locations  -l      Passing `--`
+ * --filename   -f      If the user passes `--filename example.txt` this arguments value will be set to: example.txt
+ * --locations  -l      Passing `-l "location_one, location_two` this arguments value will be set to: location_one, location_two
  */
 class Complex extends AbstractArgumentObject
 {
 
     /**
-     * The command won't run if argument is required
+     * The command won't run if argument is required but not passed
      */
     public $required = false;
 
