@@ -63,10 +63,6 @@ abstract class AbstractArgumentObject
      */
     public $passed = false;
 
-    /**
-     * Instance is set in @see App::registerArguments
-     * @var Output $output
-     */
     public $output;
 
     /**
@@ -144,7 +140,7 @@ abstract class AbstractArgumentObject
     }
 
     /**
-     * Set an exclude for this argument - None of the initialized exclude arguments is valid to be passed
+     * Set an exclude for this argument - None of the initialized exclude arguments are valid to be passed
      */
     public function excludes(string $argName): self
     {

@@ -12,11 +12,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if (version_compare(PHP_VERSION, '7.0.0', '<')) {
-    echo 'Could not start the CLI. Your PHP version must be 7 or higher. Your current version: ' . PHP_VERSION . PHP_EOL . PHP_EOL;
-    exit();
+    echo PHP_EOL . PHP_EOL . 'Could not start the CLI. Your PHP version must be 7 or higher. Your current version: ' . PHP_VERSION . PHP_EOL . PHP_EOL;
+    exit;
 } elseif (PHP_SAPI !== 'cli') {
-    echo 'Could not start the CLI. It must be run as CLI application.' . PHP_EOL . PHP_EOL;
-    exit();
+    echo PHP_EOL . PHP_EOL . 'Could not start the CLI. It must be run as CLI application.' . PHP_EOL . PHP_EOL;
+    exit;
 }
 
 define('BASE', str_replace('\\', '/', dirname(__DIR__)));
@@ -27,33 +27,24 @@ spl_autoload_register(function (string $class) {
     require_once $file;
 });
 
-require_once "Source/Component/DependencyInjector.php";
-
-$injector = new \Source\Component\DependencyInjector();
-
-function inject(string $class, bool $create = false)
-{
-    global $injector;
-    try {
-        return $injector->inject($class, $create);
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-        exit();
-    }
-
-}
-
 try {
-    unset($argv[0]);
+    if (basename($argv[0]) === basename(__FILE__)) {
+        unset($argv[0]);
+    }
     /** @var \Source\App $executor */
-    $executor = inject('Source\App');
+    $objectManager = new \Source\Objects\ObjectManager();
+    $executor = $objectManager->getSingleton(\Source\App::class);
     $executor->execute($argv);
 } catch (Exception $e) {
     echo PHP_EOL . PHP_EOL . $e->getMessage() . PHP_EOL . PHP_EOL;
-    exit();
+    exit;
 }
 
 /**
+ * todo...
+ *
+ * Permissions for execute.php EXECUTE
+ *
  * todo...
  *
  * Allow aliases to be combined

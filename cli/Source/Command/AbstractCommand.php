@@ -9,7 +9,6 @@ namespace Source\Command;
 use Source\App;
 use Source\Component\Argument\AbstractArgumentObject;
 use Source\Component\Argument\ArgumentFactory;
-use Source\Component\Interaction\Input\AbstractInputObject;
 use Source\Component\Interaction\Input\InputFactory;
 use Source\Component\Interaction\Output\Output;
 

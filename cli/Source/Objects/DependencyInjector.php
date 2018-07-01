@@ -4,12 +4,11 @@
  * @license     https://www.gnu.org/licenses/gpl-3.0.de.html General Public License (GNU 3.0)
  */
 
-namespace Source\Component;
+namespace Source\Objects;
+use Source\ErrorHandler;
 
 /**
  * Automatic constructor dependency injection
- *
- * todo Proper code style, refactor entire class
  */
 class DependencyInjector
 {
@@ -19,20 +18,32 @@ class DependencyInjector
      */
     private $loaded = [];
 
+    private $errorHandler;
+
+    public function __construct()
+    {
+        $this->errorHandler = new ErrorHandler();
+    }
+
     /**
      * Build an instance of the given class
      */
     public function inject(string $class, bool $create = false)
     {
-        if (isset($this->loaded[$class]) && !$create) {
-            return $this->loaded[$class];
+        try {
+            if (isset($this->loaded[$class]) && !$create) {
+                return $this->loaded[$class];
+            }
+            $reflector = new \ReflectionClass($class);
+            if (!$reflector->isInstantiable()) {
+                throw new \Exception("$class is not instantiable.");
+            }
+            $return = $this->injectConstructorArgs($reflector, $class, $create);
+            return $this->getClass($class, $return, $create);
+        } catch (\Exception $e) {
+            $this->errorHandler->handle($e);
+            exit;
         }
-        $reflector = new \ReflectionClass($class);
-        if (!$reflector->isInstantiable()) {
-            throw new \Exception("$class is not instantiable.");
-        }
-        $return = $this->injectConstructorArgs($reflector, $class, $create);
-        return $this->getClass($class, $return, $create);
     }
 
     /**
@@ -75,22 +86,27 @@ class DependencyInjector
      */
     private function getDependencies(array $parameters, bool $create): array
     {
-        $dependencies = [];
-        /** @var \ReflectionParameter $param */
-        foreach ($parameters as $param) {
-            $dependency = $param->getClass();
-            if ($dependency === null) {
-                $dependencies[] = $this->injectNonClass($param);
-            } else {
-                $instance = null;
-                $dependencyName = $dependency->name;
-                if (!isset($this->loaded[$dependencyName]) || $create) {
-                    $instance = $this->inject($dependencyName, $create);
+        try {
+            $dependencies = [];
+            /** @var \ReflectionParameter $param */
+            foreach ($parameters as $param) {
+                $dependency = $param->getClass();
+                if ($dependency === null) {
+                    $dependencies[] = $this->injectNonClass($param);
+                } else {
+                    $instance = null;
+                    $dependencyName = $dependency->name;
+                    if (!isset($this->loaded[$dependencyName]) || $create) {
+                        $instance = $this->inject($dependencyName, $create);
+                    }
+                    $dependencies[] = $this->getClass($dependencyName, $instance, $create);
                 }
-                $dependencies[] = $this->getClass($dependencyName, $instance, $create);
             }
+            return $dependencies;
+        } catch (\Exception $e) {
+            $this->errorHandler->handle($e);
+            exit;
         }
-        return $dependencies;
     }
 
     /**

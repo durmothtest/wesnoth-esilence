@@ -40,17 +40,7 @@ class Output
 
     /**
      * Codes for colored console output, allows custom colors to be registered
-     *
-     * Example:
-     *
-     * \**
-     *  * $this->output @see AbstractCommand::__construct
-     *  *\
-     * public function whateverSetYourColorCode()
-     * {
-     *     $this->output['custom_color_blue'] = '0;34'
-     *     $this->output->writeln('<custom_color_blue>This is a blue string.</custom_color_blue> Well done!');
-     * }
+     * @see Output::registerColor
      */
     public $colors = [
         // Light grey, darker than usual white output
@@ -153,6 +143,16 @@ class Output
         }
         // Suppress message
         return true;
+    }
+
+    /**
+     * Set up your custom tag for output color
+     */
+    public function registerColor(string $tag, string $code): self
+    {
+        $this->colors[$tag] = $code;
+
+        return $this;
     }
 
     /**

@@ -6,17 +6,28 @@
 
 namespace Source\Component\Interaction\Input;
 
+use Source\Objects\ObjectManager;
+
 class InputFactory
 {
 
     const INPUT_LABELED = Labeled::class;
 
+    private $objectManager;
+
+    public function __construct(
+        ObjectManager $objectManager
+    ) {
+        $this->objectManager = $objectManager;
+    }
+
     public function create(string $type, ...$args): AbstractInputObject
     {
-        $obj = inject($type, true);
-        $obj->create(...$args);
+        /** @var AbstractInputObject $object */
+        $object = $this->objectManager->createObject($type);
+        $object->create(...$args);
 
-        return $obj;
+        return $object;
     }
 
 }

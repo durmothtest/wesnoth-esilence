@@ -10,6 +10,7 @@ use Source\Command\AbstractCommand;
 use Source\Component\Argument\AbstractArgumentObject;
 use Source\Component\Interaction\Input\InputFactory;
 use Source\Component\Interaction\Output\Output;
+use Source\Objects\ObjectManager;
 
 /**
  * Executing the command requested by the CLI
@@ -49,15 +50,18 @@ class App
      */
     private $argv;
 
+    private $errorHandler;
     private $output;
-    private $inputFactory;
+    private $objectManager;
 
     public function __construct(
+        ErrorHandler $errorHandler,
         Output $output,
-        InputFactory $inputFactory
+        ObjectManager $objectManager
     ) {
+        $this->errorHandler = $errorHandler;
         $this->output = $output;
-        $this->inputFactory = $inputFactory;
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -122,7 +126,7 @@ class App
                 try {
                     $this->registerCommand($file);
                 } catch (\Exception $e) {
-                    $this->output->error($e->getMessage());
+                    $this->errorHandler->handle($e);
                     exit;
                 }
             }
@@ -135,7 +139,7 @@ class App
     private function registerCommand(string $file)
     {
         $class = 'Command\\' . basename($file, '.php');
-        $register = inject($class);
+        $register = $this->objectManager->getSingleton($class);
         $this->commands[$register->command] = $register;
     }
 
@@ -194,7 +198,7 @@ class App
                 if ($found !== false) {
                     if ($argument->passed) {
                         // Argument is passed multiple times
-                        $this->output->error(sprintf('Argument %s is passed more than once. Please make sure your command does not contain any typos.'), $argument->name);
+                        $this->output->error(sprintf('Argument %s is passed more than once. Please make sure your command does not contain any typos.', $argument->name));
                         exit;
                     }
                     $argument->passed = true;
